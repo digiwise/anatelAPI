@@ -1,0 +1,2 @@
+appcfg.py upload_data --config_file=bulkloader.yaml --filename=assets/executive_directors_clean.csv --kind=ExecutiveDirectors --url=http://localhost:8080/_ah/remote_api anatelAPI
+

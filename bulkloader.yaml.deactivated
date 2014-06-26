@@ -1,0 +1,48 @@
+# Equivalent of 'import foo' in Python.
+python_preamble:
+- import: models
+- import: google.appengine.ext.bulkload.transform
+- import: google.appengine.api.datastore
+
+# List of all the transformer classes.
+transformers:
+  # A sample using a CSV file with a header.
+- kind: ExecutiveDirectors
+  connector: csv
+  connector_options:
+    encoding: utf-8
+    columns: from_header
+  property_map:
+    - property: directorName
+      external_name: name
+    - property: directorPhotoKey
+      external_name: photo_link
+    - property: placeOfBirth
+      external_name: place_of_birth
+    - property: mandateStart
+      external_name: start_date
+      import_transform: transform.import_date_time('%m/%d/%Y')
+    - property: mandateEnd
+      external_name: end_date
+      import_transform: transform.import_date_time('%m/%d/%Y')
+    - property: appointment
+      external_name: appointment
+      import_transform: transform.none_if_empty(int)
+    - property: bio
+      external_name: biography
+    - property: refLinks
+      external_name: ref_links
+    - property: politicalPartyAffinity
+      external_name: party
+
+
+#class ExecutiveDirectors(ndb.Expando):
+#    directorName = ndb.StringProperty(required=True)
+#    directorPhotoKey = ndb.BlobKeyProperty()
+#    placeOfBirth = ndb.StringProperty()
+#    mandateStart = ndb.DateProperty()
+#    mandateEnd = ndb.DateProperty()
+#    appointment = ndb.IntegerProperty(required=True)
+#    biography = ndb.TextProperty(compressed=True)
+#    refLinks = ndb.JsonProperty(compressed=True)
+#    politicalPartyAffinity = ndb.JsonProperty(compressed=False)
