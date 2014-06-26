@@ -28,7 +28,7 @@ DIRECTORS = endpoints.ResourceContainer(
 
 DIRECTOR = endpoints.ResourceContainer(
     message_types.VoidMessage,
-    directorId=messages.IntegerField(1, variant=messages.Variant.INT32, required=True)
+    directorId=messages.IntegerField(1, variant=messages.Variant.INT64, required=True)
 )
 
 PROFESSIONAL_HISTORY = endpoints.ResourceContainer(
